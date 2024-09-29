@@ -1,5 +1,4 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import './App.css';
 import LoginButton from './components/Buttons/LoginButtons';
 import LogoutButton from './components/Buttons/LogoutButton';
 import { useEffect } from 'react';
@@ -7,6 +6,7 @@ import axios from 'axios';
 
 function App() {
   const { isAuthenticated, user, getAccessTokenSilently } = useAuth0();
+  console.log(`app is working: ${import.meta.env.MODE} mode...`);
 
   useEffect(() => {
     const syncUser = async () => {
