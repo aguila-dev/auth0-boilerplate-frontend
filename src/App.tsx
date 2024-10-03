@@ -10,10 +10,18 @@ function App() {
 
   useEffect(() => {
     const syncUser = async () => {
-      if (isAuthenticated) {
-        const token = await getAccessTokenSilently();
+      if (isAuthenticated && user) {
+        const token = await getAccessTokenSilently({
+          authorizationParams: {
+            audience: import.meta.env.VITE_AUTH0_AUDIENCE,
+            scope: 'openid profile email',
+          },
+        });
+
+        console.log('authorization token', token);
+
         await axios.post(
-          'http://localhost:8080/auth/signup',
+          'http://localhost:8080/v1/auth/signup',
           {
             email: user?.email,
             name: user?.name,
@@ -33,10 +41,10 @@ function App() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       {isAuthenticated ? (
-        <>
+        <div className="flex flex-col gap-4">
           <p>Welcome, {user?.name}</p>
           <LogoutButton />
-        </>
+        </div>
       ) : (
         <LoginButton />
       )}

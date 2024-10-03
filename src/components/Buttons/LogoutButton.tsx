@@ -7,6 +7,7 @@ const LogoutButton: React.FC = () => {
 
   return (
     <button
+      type="button"
       onClick={() =>
         logout({ logoutParams: { returnTo: window.location.origin } })
       }
